@@ -4,10 +4,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
-  return guides.map((guide) => ({
-    params: { slug: guide.id },
-    props: { guide },
-  }));
+  // Only create pages for guides without an external URL
+  return guides
+    .filter((guide) => !guide.data.externalUrl)
+    .map((guide) => ({
+      params: { slug: guide.id },
+      props: { guide },
+    }));
 }
 
 const { guide } = Astro.props;
@@ -15,19 +18,26 @@ const { Content } = await render(guide);
 ---
 
 <BaseLayout title={`${guide.data.title} - Samar Ahsan`} description={guide.data.description}>
-  <article>
+  <article class="guide-page">
     <header>
       <a href="/guides" class="back-link">&larr; All Guides</a>
       <h1>{guide.data.title}</h1>
+      {guide.data.description && (
+        <p class="description">{guide.data.description}</p>
+      )}
       {guide.data.pdf && (
         <a href={guide.data.pdf} class="pdf-link" download>
           Download PDF
         </a>
       )}
     </header>
+
     {guide.data.cover && (
-      <img src={guide.data.cover} alt={guide.data.title} class="cover" />
+      <figure class="cover">
+        <img src={guide.data.cover} alt={guide.data.title} />
+      </figure>
     )}
+
     <div class="content">
       <Content />
     </div>
@@ -35,42 +45,88 @@ const { Content } = await render(guide);
 </BaseLayout>
 
 <style>
-  article header {
+  .guide-page {
+    max-width: var(--content-width);
+  }
+
+  header {
     margin-bottom: 2rem;
   }
 
   .back-link {
     display: inline-block;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: var(--color-text-muted);
     font-size: 0.875rem;
   }
 
+  .back-link:hover {
+    color: var(--color-text);
+  }
+
   h1 {
-    margin: 0 0 1rem;
+    margin: 0 0 0.75rem;
+    font-size: 2.5rem;
+    font-weight: 500;
+  }
+
+  .description {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin: 0 0 1.5rem;
+    line-height: 1.5;
   }
 
   .pdf-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
     padding: 0.5rem 1rem;
-    background: var(--color-accent);
-    color: white;
-    border-radius: 6px;
+    background: var(--color-text);
+    color: var(--color-bg);
     font-size: 0.875rem;
+    border-radius: 4px;
+    transition: opacity 0.2s;
   }
 
   .pdf-link:hover {
-    text-decoration: none;
-    opacity: 0.9;
+    opacity: 0.85;
   }
 
   .cover {
+    margin: 0 0 2.5rem;
+  }
+
+  .cover img {
     width: 100%;
-    border-radius: 8px;
-    margin-bottom: 2rem;
+    border-radius: 4px;
   }
 
   .content {
-    line-height: 1.7;
+    line-height: 1.75;
+    font-size: 1.0625rem;
+  }
+
+  .content :global(h2) {
+    margin-top: 2.5rem;
+  }
+
+  .content :global(h3) {
+    margin-top: 2rem;
+  }
+
+  .content :global(img) {
+    border-radius: 4px;
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+
+    .description {
+      font-size: 1.125rem;
+    }
   }
 </style>

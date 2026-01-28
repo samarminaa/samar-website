@@ -15,43 +15,200 @@ const { Content } = await render(project);
 ---
 
 <BaseLayout title={`${project.data.title} - Samar Ahsan`} description={project.data.description}>
-  <article>
+  <article class="project-page">
     <header>
       <a href="/" class="back-link">&larr; All Projects</a>
       <h1>{project.data.title}</h1>
+      {project.data.description && (
+        <p class="description">{project.data.description}</p>
+      )}
     </header>
-    {project.data.cover && (
-      <img src={project.data.cover} alt={project.data.title} class="cover" />
+
+    {(project.data.role || project.data.tools) && (
+      <div class="meta">
+        {project.data.role && (
+          <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">{project.data.role}</span>
+          </div>
+        )}
+        {project.data.tools && project.data.tools.length > 0 && (
+          <div class="meta-item">
+            <span class="meta-label">Tools</span>
+            <span class="meta-value">{project.data.tools.join(', ')}</span>
+          </div>
+        )}
+      </div>
     )}
+
+    {project.data.links && project.data.links.length > 0 && (
+      <div class="links">
+        {project.data.links.map((link) => (
+          <a href={link.url} target="_blank" rel="noopener noreferrer" class="external-link">
+            {link.label} &#8599;
+          </a>
+        ))}
+      </div>
+    )}
+
+    {project.data.cover && (
+      <figure class="cover">
+        <img src={project.data.cover} alt={project.data.title} />
+      </figure>
+    )}
+
     <div class="content">
       <Content />
     </div>
+
+    {project.data.gallery && project.data.gallery.length > 0 && (
+      <section class="gallery">
+        {project.data.gallery.map((image) => (
+          <figure>
+            <img src={image} alt="" />
+          </figure>
+        ))}
+      </section>
+    )}
   </article>
 </BaseLayout>
 
 <style>
-  article header {
+  .project-page {
+    max-width: var(--content-width);
+  }
+
+  header {
     margin-bottom: 2rem;
   }
 
   .back-link {
     display: inline-block;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: var(--color-text-muted);
     font-size: 0.875rem;
   }
 
-  h1 {
-    margin: 0;
+  .back-link:hover {
+    color: var(--color-text);
   }
 
-  .cover {
-    width: 100%;
-    border-radius: 8px;
+  h1 {
+    margin: 0 0 0.75rem;
+    font-size: 2.5rem;
+    font-weight: 500;
+  }
+
+  .description {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
     margin-bottom: 2rem;
   }
 
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .meta-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .meta-value {
+    font-size: 0.9375rem;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 1rem;
+    background: var(--color-text);
+    color: var(--color-bg);
+    font-size: 0.875rem;
+    border-radius: 4px;
+    transition: opacity 0.2s;
+  }
+
+  .external-link:hover {
+    opacity: 0.85;
+  }
+
+  .cover {
+    margin: 0 0 2.5rem;
+  }
+
+  .cover img {
+    width: 100%;
+    border-radius: 4px;
+  }
+
   .content {
-    line-height: 1.7;
+    line-height: 1.75;
+    font-size: 1.0625rem;
+  }
+
+  .content :global(h2) {
+    margin-top: 2.5rem;
+  }
+
+  .content :global(h3) {
+    margin-top: 2rem;
+  }
+
+  .content :global(img) {
+    border-radius: 4px;
+    margin: 1.5rem 0;
+  }
+
+  .gallery {
+    margin-top: 3rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .gallery figure {
+    margin: 0;
+  }
+
+  .gallery img {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+
+    .description {
+      font-size: 1.125rem;
+    }
+
+    .meta {
+      gap: 1.5rem;
+    }
   }
 </style>

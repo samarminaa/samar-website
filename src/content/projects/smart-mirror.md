@@ -1,27 +1,33 @@
 ---
-title: Smart Mirror
-description: A Raspberry Pi-powered magic mirror displaying weather, calendar, and news.
-cover: /images/smart-mirror.jpg
+title: "Smart Mirror"
+description: "A Raspberry Pi-powered smart mirror with weather, calendar, and news integration."
+cover: "/images/placeholder.svg"
+role: "Maker"
+tools:
+  - Raspberry Pi
+  - Python
+  - JavaScript
+links:
+  - label: "View on GitHub"
+    url: "#"
 ---
 
 ## Overview
 
-The Smart Mirror is a two-way mirror with a display behind it, powered by a Raspberry Pi. It shows useful information like the current weather, upcoming calendar events, and news headlines.
+A DIY smart mirror project built using a Raspberry Pi, a two-way mirror, and an old monitor. The display shows weather forecasts, calendar events, news headlines, and transit information—all at a glance while getting ready in the morning.
+
+## The Build
+
+The hardware consists of a 24" monitor mounted behind a two-way acrylic mirror, housed in a custom wooden frame. The Raspberry Pi runs MagicMirror², an open-source modular smart mirror platform.
 
 ## Features
 
-- Real-time weather updates
+- Real-time weather and 5-day forecast
 - Google Calendar integration
-- News feed from customizable sources
-- Voice control via microphone module
+- NYC subway status and arrival times
+- News headlines from customizable sources
+- Voice control via Google Assistant
 
-## Tech Stack
+## Lessons Learned
 
-- Raspberry Pi 4
-- MagicMirror² software
-- Custom CSS modules
-- Node.js backend
-
-## Build Process
-
-The mirror frame was built from reclaimed wood, with the two-way acrylic mirror cut to fit. The monitor is mounted behind the mirror with the Pi attached to the back of the frame.
+The biggest challenge was getting the lighting right—the room's ambient light needs to be balanced against the display brightness for the mirror effect to work properly.

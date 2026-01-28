@@ -2,52 +2,157 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const guides = await getCollection('guides');
+const allGuides = await getCollection('guides');
+
+// Sort by order field (if exists) then alphabetically
+const sortGuides = (guides: typeof allGuides) => {
+  return guides.sort((a, b) => {
+    if (a.data.order !== undefined && b.data.order !== undefined) {
+      return a.data.order - b.data.order;
+    }
+    return a.data.title.localeCompare(b.data.title);
+  });
+};
+
+const travelGuides = sortGuides(allGuides.filter(g => g.data.category === 'travel-guides'));
+const cityGuides = sortGuides(allGuides.filter(g => g.data.category === 'city-guides'));
+const travelWriting = sortGuides(allGuides.filter(g => g.data.category === 'travel-writing'));
 ---
 
-<BaseLayout title="Guides - Samar Ahsan" description="Travel guides and how-tos by Samar Ahsan.">
+<BaseLayout title="Guides - Samar Ahsan" description="Travel guides, city guides, and travel writing by Samar Ahsan.">
   <h1>Guides</h1>
-  <ul class="guide-list">
-    {guides.map((guide) => (
-      <li class="guide-card">
-        <a href={`/guides/${guide.id}`}>
-          {guide.data.cover && (
-            <img src={guide.data.cover} alt={guide.data.title} />
+
+  <section class="guide-section">
+    <h2>Travel Guides</h2>
+    <p class="section-description">In-depth guides for places I've explored.</p>
+    <ul class="guide-grid">
+      {travelGuides.map((guide) => (
+        <li class="guide-card">
+          {guide.data.externalUrl ? (
+            <a href={guide.data.externalUrl} target="_blank" rel="noopener noreferrer">
+              {guide.data.cover ? (
+                <div class="card-image">
+                  <img src={guide.data.cover} alt={guide.data.title} />
+                </div>
+              ) : (
+                <div class="card-image placeholder"></div>
+              )}
+              <div class="card-content">
+                <h3>{guide.data.title}</h3>
+                <p>{guide.data.description}</p>
+                {guide.data.pdf && <span class="badge">PDF</span>}
+              </div>
+            </a>
+          ) : (
+            <a href={`/guides/${guide.id}`}>
+              {guide.data.cover ? (
+                <div class="card-image">
+                  <img src={guide.data.cover} alt={guide.data.title} />
+                </div>
+              ) : (
+                <div class="card-image placeholder"></div>
+              )}
+              <div class="card-content">
+                <h3>{guide.data.title}</h3>
+                <p>{guide.data.description}</p>
+                {guide.data.pdf && <span class="badge">PDF</span>}
+              </div>
+            </a>
           )}
-          <div class="guide-content">
-            <h2>{guide.data.title}</h2>
-            <p>{guide.data.description}</p>
-            {guide.data.pdf && (
-              <span class="pdf-badge">PDF Available</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <hr />
+
+  <section class="guide-section">
+    <h2>Samar's Declassified City Guides</h2>
+    <p class="section-description">Living documents with my favorite spots in cities I know well.</p>
+    <ul class="guide-grid">
+      {cityGuides.map((guide) => (
+        <li class="guide-card">
+          <a href={guide.data.externalUrl || `/guides/${guide.id}`} target={guide.data.externalUrl ? "_blank" : undefined} rel={guide.data.externalUrl ? "noopener noreferrer" : undefined}>
+            {guide.data.cover ? (
+              <div class="card-image">
+                <img src={guide.data.cover} alt={guide.data.title} />
+              </div>
+            ) : (
+              <div class="card-image placeholder"></div>
             )}
-          </div>
-        </a>
-      </li>
-    ))}
-  </ul>
+            <div class="card-content">
+              <h3>{guide.data.title}</h3>
+              <p>{guide.data.description}</p>
+              {guide.data.externalUrl && <span class="badge external">Google Doc</span>}
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <hr />
+
+  <section class="guide-section">
+    <h2>Travel Writing</h2>
+    <p class="section-description">Stories and essays from my travels.</p>
+    <ul class="guide-list-simple">
+      {travelWriting.map((guide) => (
+        <li>
+          <a href={guide.data.externalUrl || `/guides/${guide.id}`} target={guide.data.externalUrl ? "_blank" : undefined} rel={guide.data.externalUrl ? "noopener noreferrer" : undefined}>
+            {guide.data.title}
+            {guide.data.externalUrl && <span class="arrow">&#8599;</span>}
+          </a>
+          <p>{guide.data.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
 </BaseLayout>
 
 <style>
   h1 {
     margin-top: 0;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 2.5rem;
   }
 
-  .guide-list {
+  .guide-section {
+    margin-bottom: 1rem;
+  }
+
+  .guide-section h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin: 0 0 0.5rem;
+  }
+
+  .section-description {
+    color: var(--color-text-muted);
+    margin: 0 0 1.5rem;
+    font-size: 0.9375rem;
+  }
+
+  hr {
+    margin: 3rem 0;
+  }
+
+  .guide-grid {
     list-style: none;
     padding: 0;
+    margin: 0;
     display: grid;
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
   }
 
   .guide-card {
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: box-shadow 0.2s;
+    transition: transform 0.2s ease;
   }
 
   .guide-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
   }
 
   .guide-card a {
@@ -56,33 +161,97 @@ const guides = await getCollection('guides');
     text-decoration: none;
   }
 
-  .guide-card img {
+  .card-image {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background: var(--color-bg-alt);
+  }
+
+  .card-image img {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
   }
 
-  .guide-content {
-    padding: 1rem;
+  .guide-card:hover .card-image img {
+    transform: scale(1.02);
   }
 
-  .guide-card h2 {
-    font-size: 1.25rem;
-    margin: 0 0 0.5rem;
+  .card-image.placeholder {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
   }
 
-  .guide-card p {
+  .card-content {
+    padding: 1rem 0;
+  }
+
+  .card-content h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin: 0 0 0.375rem;
+  }
+
+  .card-content p {
     color: var(--color-text-muted);
     margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
   }
 
-  .pdf-badge {
+  .badge {
     display: inline-block;
     margin-top: 0.75rem;
     padding: 0.25rem 0.5rem;
     background: var(--color-bg-alt);
-    border-radius: 4px;
     font-size: 0.75rem;
     color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge.external {
+    background: transparent;
+    border: 1px solid var(--color-border);
+  }
+
+  .guide-list-simple {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .guide-list-simple li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .guide-list-simple li:last-child {
+    border-bottom: none;
+  }
+
+  .guide-list-simple a {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .guide-list-simple .arrow {
+    font-size: 0.875rem;
+  }
+
+  .guide-list-simple p {
+    color: var(--color-text-muted);
+    margin: 0.375rem 0 0;
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 768px) {
+    .guide-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
   }
 </style>

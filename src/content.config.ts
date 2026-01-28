@@ -7,6 +7,13 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     cover: z.string().optional(),
+    role: z.string().optional(),
+    tools: z.array(z.string()).optional(),
+    links: z.array(z.object({
+      label: z.string(),
+      url: z.string(),
+    })).optional(),
+    gallery: z.array(z.string()).optional(),
   }),
 });
 
@@ -17,6 +24,9 @@ const guides = defineCollection({
     description: z.string(),
     cover: z.string().optional(),
     pdf: z.string().optional(),
+    externalUrl: z.string().optional(),
+    category: z.enum(['travel-guides', 'city-guides', 'travel-writing']).optional(),
+    order: z.number().optional(),
   }),
 });
 
