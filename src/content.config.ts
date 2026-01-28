@@ -15,6 +15,7 @@ const projects = defineCollection({
     })).optional(),
     gallery: z.array(z.string()).optional(),
     order: z.number().optional(),
+    coverPosition: z.string().optional(),
   }),
 });
 

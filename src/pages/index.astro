@@ -17,7 +17,7 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
         <a href={`/projects/${project.id}`}>
           {project.data.cover ? (
             <div class="card-image">
-              <img src={project.data.cover} alt={project.data.title} />
+              <img src={project.data.cover} alt={project.data.title} style={project.data.coverPosition ? `object-position: ${project.data.coverPosition}` : ''} />
             </div>
           ) : (
             <div class="card-image placeholder"></div>
