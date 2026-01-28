@@ -22,6 +22,11 @@ const pages = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    timeline: z.array(z.object({
+      date: z.string(),
+      title: z.string(),
+      description: z.string(),
+    })).optional(),
   }),
 });
 

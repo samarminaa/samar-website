@@ -4,6 +4,7 @@ import { getEntry, render } from 'astro:content';
 
 const about = await getEntry('pages', 'about');
 const { Content } = await render(about);
+const timeline = about.data.timeline || [];
 ---
 
 <BaseLayout title={about.data.title} description={about.data.description}>
@@ -12,15 +13,35 @@ const { Content } = await render(about);
       <Content />
     </div>
 
-    <section class="about-image">
-      <img src="/images/placeholder.svg" alt="Samar Ahsan" />
-    </section>
+    {timeline.length > 0 && (
+      <section class="history">
+        <h2>A Brief History</h2>
+        <div class="timeline">
+          <div class="timeline-line"></div>
+          {timeline.map((item, index) => (
+            <div class={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}>
+              <div class="timeline-text">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+              <div class="timeline-connector"></div>
+              <div class="timeline-node">
+                <span class="timeline-date">{item.date.toUpperCase()}</span>
+                <div class="timeline-dot"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
   </article>
 </BaseLayout>
 
 <style>
   .about-page {
     max-width: var(--content-width);
+    margin: 0 auto;
   }
 
   .about-content :global(h1) {
@@ -41,41 +62,142 @@ const { Content } = await render(about);
     text-underline-offset: 2px;
   }
 
-  .about-content :global(hr) {
-    margin: 2.5rem 0;
-  }
-
-  .about-content :global(h2) {
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-
-  .about-content :global(h2 ~ p) {
+  .about-content :global(p + p) {
     font-size: 1.0625rem;
     line-height: 1.7;
     color: var(--color-text-muted);
   }
 
-  .about-content :global(> p:last-of-type) {
-    margin: 2rem 0;
+  /* History Section */
+  .history {
+    margin-top: 4rem;
   }
 
-  .about-content :global(> p:last-of-type a) {
-    text-decoration: underline;
-    text-underline-offset: 2px;
+  .history h2 {
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
+    text-align: center;
   }
 
-  .about-image {
-    margin-top: 3rem;
+  /* Timeline */
+  .timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 0;
   }
 
-  .about-image img {
-    width: 100%;
-    max-width: 400px;
+  /* Vertical center line */
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-border);
+    transform: translateX(-50%);
   }
 
+  /* Each timeline item - fixed height for even spacing */
+  .timeline-item {
+    position: relative;
+    height: 120px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Node container - always centered */
+  .timeline-node {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 2;
+  }
+
+  /* Dot on the line */
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--color-bg);
+    border: 2px solid var(--color-text);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Date badge */
+  .timeline-date {
+    background: var(--color-text);
+    color: var(--color-bg);
+    padding: 0.25rem 0.625rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  /* Horizontal connector line */
+  .timeline-connector {
+    position: absolute;
+    top: 50%;
+    height: 1px;
+    background: var(--color-border);
+    width: calc(50% - 160px);
+  }
+
+  /* Text content */
+  .timeline-text {
+    position: absolute;
+    width: calc(50% - 180px);
+  }
+
+  .timeline-text h3 {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    margin: 0 0 0.375rem;
+  }
+
+  .timeline-text p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* LEFT side events: text on left, date on right of dot */
+  .timeline-item.left .timeline-text {
+    left: 0;
+    text-align: right;
+  }
+
+  .timeline-item.left .timeline-connector {
+    left: calc(50% - 160px);
+    right: 50%;
+  }
+
+  .timeline-item.left .timeline-node {
+    flex-direction: row-reverse;
+  }
+
+  /* RIGHT side events: text on right, date on left of dot */
+  .timeline-item.right .timeline-text {
+    right: 0;
+    text-align: left;
+  }
+
+  .timeline-item.right .timeline-connector {
+    left: 50%;
+    width: calc(50% - 160px);
+  }
+
+  .timeline-item.right .timeline-node {
+    flex-direction: row;
+  }
+
+  /* Mobile */
   @media (max-width: 768px) {
     .about-content :global(h1) {
       font-size: 2rem;
@@ -83,6 +205,59 @@ const { Content } = await render(about);
 
     .about-content :global(h1 + p) {
       font-size: 1.125rem;
+    }
+
+    .timeline {
+      padding: 1rem 0 1rem 2rem;
+    }
+
+    .timeline-line {
+      left: 0;
+      transform: none;
+    }
+
+    .timeline-item {
+      height: auto;
+      min-height: 100px;
+      padding: 1rem 0;
+    }
+
+    .timeline-node {
+      left: 0;
+      transform: none;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .timeline-item.left .timeline-node,
+    .timeline-item.right .timeline-node {
+      flex-direction: column;
+    }
+
+    .timeline-dot {
+      order: 2;
+    }
+
+    .timeline-date {
+      order: 1;
+    }
+
+    .timeline-connector {
+      display: none;
+    }
+
+    .timeline-text {
+      position: relative;
+      width: 100%;
+      left: auto;
+      right: auto;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-item.left .timeline-text,
+    .timeline-item.right .timeline-text {
+      text-align: left;
     }
   }
 </style>
