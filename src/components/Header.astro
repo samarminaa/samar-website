@@ -1,0 +1,55 @@
+---
+// Header component - can be customized per page if needed
+---
+
+<header>
+  <nav>
+    <a href="/" class="logo">Samar Ahsan</a>
+    <ul>
+      <li><a href="/">Projects</a></li>
+      <li><a href="/guides">Guides</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  header {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .logo {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 1.1rem;
+  }
+
+  .logo:hover {
+    text-decoration: none;
+  }
+
+  nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    color: var(--color-text-muted);
+  }
+
+  nav a:hover {
+    color: var(--color-text);
+  }
+</style>

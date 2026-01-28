@@ -1,0 +1,76 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({
+    params: { slug: guide.id },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+---
+
+<BaseLayout title={`${guide.data.title} - Samar Ahsan`} description={guide.data.description}>
+  <article>
+    <header>
+      <a href="/guides" class="back-link">&larr; All Guides</a>
+      <h1>{guide.data.title}</h1>
+      {guide.data.pdf && (
+        <a href={guide.data.pdf} class="pdf-link" download>
+          Download PDF
+        </a>
+      )}
+    </header>
+    {guide.data.cover && (
+      <img src={guide.data.cover} alt={guide.data.title} class="cover" />
+    )}
+    <div class="content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  article header {
+    margin-bottom: 2rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  h1 {
+    margin: 0 0 1rem;
+  }
+
+  .pdf-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 6px;
+    font-size: 0.875rem;
+  }
+
+  .pdf-link:hover {
+    text-decoration: none;
+    opacity: 0.9;
+  }
+
+  .cover {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+
+  .content {
+    line-height: 1.7;
+  }
+</style>

@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const guides = await getCollection('guides');
+---
+
+<BaseLayout title="Guides - Samar Ahsan" description="Travel guides and how-tos by Samar Ahsan.">
+  <h1>Guides</h1>
+  <ul class="guide-list">
+    {guides.map((guide) => (
+      <li class="guide-card">
+        <a href={`/guides/${guide.id}`}>
+          {guide.data.cover && (
+            <img src={guide.data.cover} alt={guide.data.title} />
+          )}
+          <div class="guide-content">
+            <h2>{guide.data.title}</h2>
+            <p>{guide.data.description}</p>
+            {guide.data.pdf && (
+              <span class="pdf-badge">PDF Available</span>
+            )}
+          </div>
+        </a>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
+
+<style>
+  h1 {
+    margin-top: 0;
+  }
+
+  .guide-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .guide-card {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+
+  .guide-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .guide-card a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .guide-card img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .guide-content {
+    padding: 1rem;
+  }
+
+  .guide-card h2 {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .guide-card p {
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .pdf-badge {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--color-bg-alt);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+</style>
