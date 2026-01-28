@@ -1,7 +1,8 @@
 ---
 title: "Body Coffee"
+order: 2
 description: "Built a low-caffeine cold brew coffee company for two years."
-cover: "/images/placeholder.svg"
+cover: "/images/projects/body-coffee/cover.jpeg"
 role: "Creative Director"
 tools:
   - Figma

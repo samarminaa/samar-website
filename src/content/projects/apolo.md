@@ -1,7 +1,8 @@
 ---
 title: "APOLO"
+order: 3
 description: "Volunteered for a coffee association in Olopa, Guatemala. Developed their brand and trained stakeholders, completely in Spanish."
-cover: "/images/placeholder.svg"
+cover: "/images/projects/apolo/cover.png"
 role: "Product Designer"
 tools:
   - Figma

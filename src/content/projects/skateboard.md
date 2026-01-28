@@ -1,5 +1,6 @@
 ---
 title: "Skateboard"
+order: 5
 description: "Built a skateboard in Gowanus, Brooklyn."
 cover: "/images/placeholder.svg"
 role: "Illustrator"
