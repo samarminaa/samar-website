@@ -1,38 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry, render } from 'astro:content';
+
+const about = await getEntry('pages', 'about');
+const { Content } = await render(about);
 ---
 
-<BaseLayout title="About - Samar Ahsan" description="Learn more about Samar Ahsan.">
+<BaseLayout title={about.data.title} description={about.data.description}>
   <article class="about-page">
-    <section class="intro">
-      <h1>Hi, I'm Samar.</h1>
-      <p class="lead">
-        I'm a product designer and creative based in Brooklyn. Currently, I'm a Principal Product Designer at <a href="https://brooklyndata.co" target="_blank" rel="noopener noreferrer">Brooklyn Data</a>, where I work on making data tools more human.
-      </p>
-    </section>
-
-    <hr />
-
-    <section class="history">
-      <h2>a brief history.</h2>
-      <p>
-        I've spent my career at the intersection of design and technology, working with startups and established companies to create products that people love to use.
-      </p>
-      <p>
-        Before Brooklyn Data, I worked at various companies where I learned that great design is as much about understanding people as it is about aesthetics.
-      </p>
-      <p>
-        When I'm not designing, you'll find me traveling, writing about places I've explored, or tinkering with side projects.
-      </p>
-    </section>
-
-    <hr />
-
-    <section class="resume">
-      <p>
-        <a href="#" class="resume-link">See my resume here</a>
-      </p>
-    </section>
+    <div class="about-content">
+      <Content />
+    </div>
 
     <section class="about-image">
       <img src="/images/placeholder.svg" alt="Samar Ahsan" />
@@ -45,46 +23,46 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     max-width: var(--content-width);
   }
 
-  .intro h1 {
+  .about-content :global(h1) {
     margin-top: 0;
     font-size: 2.5rem;
     font-weight: 500;
     margin-bottom: 1.5rem;
   }
 
-  .lead {
+  .about-content :global(h1 + p) {
     font-size: 1.25rem;
     line-height: 1.6;
     color: var(--color-text);
   }
 
-  .lead a {
+  .about-content :global(h1 + p a) {
     text-decoration: underline;
     text-underline-offset: 2px;
   }
 
-  hr {
+  .about-content :global(hr) {
     margin: 2.5rem 0;
   }
 
-  .history h2 {
+  .about-content :global(h2) {
     font-size: 1.5rem;
     font-weight: 500;
     margin-top: 0;
     margin-bottom: 1rem;
   }
 
-  .history p {
+  .about-content :global(h2 ~ p) {
     font-size: 1.0625rem;
     line-height: 1.7;
     color: var(--color-text-muted);
   }
 
-  .resume {
+  .about-content :global(> p:last-of-type) {
     margin: 2rem 0;
   }
 
-  .resume-link {
+  .about-content :global(> p:last-of-type a) {
     text-decoration: underline;
     text-underline-offset: 2px;
   }
@@ -99,11 +77,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   @media (max-width: 768px) {
-    .intro h1 {
+    .about-content :global(h1) {
       font-size: 2rem;
     }
 
-    .lead {
+    .about-content :global(h1 + p) {
       font-size: 1.125rem;
     }
   }
