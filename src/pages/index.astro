@@ -197,6 +197,90 @@ const timeline = about.data.timeline || [];
     flex-direction: row;
   }
 
+  /* ==============================================
+     SCROLL ANIMATION STYLES
+     Default states: elements are hidden/offset
+     .is-visible class triggers the animated state
+     ============================================== */
+
+  /* Spine: starts with no height, draws downward */
+  .timeline-line {
+    transform: translateX(-50%) scaleY(0);
+    transform-origin: top center;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .timeline-line.is-visible {
+    transform: translateX(-50%) scaleY(1);
+  }
+
+  /* Nodes (dot + date): start smaller and transparent */
+  .timeline-node {
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .timeline-dot {
+    transform: scale(0.5);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .timeline-node.is-visible {
+    opacity: 1;
+  }
+
+  .timeline-node.is-visible .timeline-dot {
+    transform: scale(1);
+  }
+
+  /* Cards (text): slide in from their respective sides */
+  .timeline-text {
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Left cards slide in from the left */
+  .timeline-item.left .timeline-text {
+    transform: translateX(-30px);
+  }
+
+  /* Right cards slide in from the right */
+  .timeline-item.right .timeline-text {
+    transform: translateX(30px);
+  }
+
+  .timeline-text.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Connector lines: fade in */
+  .timeline-connector {
+    opacity: 0;
+    transition: opacity 0.5s ease 0.2s;
+  }
+
+  .timeline-connector.is-visible {
+    opacity: 1;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-line,
+    .timeline-node,
+    .timeline-dot,
+    .timeline-text,
+    .timeline-connector {
+      transition: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .timeline-line {
+      transform: translateX(-50%) scaleY(1);
+    }
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     .about-content :global(h1) {
@@ -259,5 +343,129 @@ const timeline = about.data.timeline || [];
     .timeline-item.right .timeline-text {
       text-align: left;
     }
+
+    /* Mobile animation adjustments */
+    .timeline-line {
+      transform: scaleY(0);
+      transform-origin: top center;
+    }
+
+    .timeline-line.is-visible {
+      transform: scaleY(1);
+    }
+
+    /* On mobile, all cards slide from left */
+    .timeline-item.left .timeline-text,
+    .timeline-item.right .timeline-text {
+      transform: translateX(-20px);
+    }
+
+    .timeline-text.is-visible {
+      transform: translateX(0);
+    }
   }
 </style>
+
+<script>
+  /**
+   * Timeline Scroll Animation
+   *
+   * Uses IntersectionObserver to trigger animations as elements enter the viewport.
+   * - Spine draws downward when timeline section becomes visible
+   * - Nodes pop in when they enter the viewport
+   * - Cards slide in from their respective sides
+   *
+   * Respects prefers-reduced-motion by checking media query before animating.
+   * Graceful degradation: content is visible even if JS fails (via CSS :not(.js-enabled) or noscript).
+   */
+
+  // Only run animations if user hasn't requested reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    // Get all animatable elements
+    const timelineLine = document.querySelector('.timeline-line');
+    const timelineItems = document.querySelectorAll('.timeline-item');
+
+    /**
+     * Observer for the spine (timeline-line)
+     * Triggers when the timeline section enters the viewport
+     * Uses a lower threshold so it starts drawing early
+     */
+    const spineObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            // Once visible, no need to observe anymore
+            spineObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0,
+        rootMargin: '0px 0px -10% 0px' // Trigger slightly before fully in view
+      }
+    );
+
+    /**
+     * Observer for timeline items (nodes, cards, connectors)
+     * Each item animates independently when it enters the viewport
+     * Uses a higher threshold so items animate when more visible
+     */
+    const itemObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const item = entry.target;
+
+            // Find child elements to animate
+            const node = item.querySelector('.timeline-node');
+            const text = item.querySelector('.timeline-text');
+            const connector = item.querySelector('.timeline-connector');
+
+            // Stagger the animations slightly
+            // Node pops first
+            if (node) {
+              node.classList.add('is-visible');
+            }
+
+            // Card slides in shortly after
+            if (text) {
+              setTimeout(() => {
+                text.classList.add('is-visible');
+              }, 100);
+            }
+
+            // Connector fades in last
+            if (connector) {
+              setTimeout(() => {
+                connector.classList.add('is-visible');
+              }, 150);
+            }
+
+            // Once animated, stop observing
+            itemObserver.unobserve(item);
+          }
+        });
+      },
+      {
+        threshold: 0.2, // Trigger when 20% of item is visible
+        rootMargin: '0px 0px -50px 0px' // Small offset from bottom
+      }
+    );
+
+    // Start observing elements
+    if (timelineLine) {
+      spineObserver.observe(timelineLine);
+    }
+
+    timelineItems.forEach((item) => {
+      itemObserver.observe(item);
+    });
+  } else {
+    // If reduced motion is preferred, make everything visible immediately
+    document.querySelectorAll('.timeline-line, .timeline-node, .timeline-text, .timeline-connector')
+      .forEach((el) => el.classList.add('is-visible'));
+  }
+</script>
