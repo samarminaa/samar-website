@@ -7,8 +7,6 @@ role: "Digital Marketing Volunteer"
 date: "March 2023"
 tools:
   - Figma
-  - Lightroom
-  - Premiere Pro
 ---
 
 <div class="blurb">
