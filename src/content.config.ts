@@ -42,6 +42,7 @@ const guides = defineCollection({
     externalUrl: z.string().optional(),
     category: z.enum(['travel-guides', 'city-guides', 'travel-writing']).optional(),
     order: z.number().optional(),
+    writtenOn: z.string().optional(),
   }),
 });
 

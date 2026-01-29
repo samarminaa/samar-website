@@ -25,6 +25,9 @@ const { Content } = await render(guide);
       {guide.data.description && (
         <p class="description">{guide.data.description}</p>
       )}
+      {guide.data.writtenOn && (
+        <p class="written-on">Written on {guide.data.writtenOn}</p>
+      )}
       {guide.data.pdf && (
         <a href={guide.data.pdf} class="pdf-link" download>
           Download PDF
@@ -73,8 +76,14 @@ const { Content } = await render(guide);
   .description {
     font-size: 1.25rem;
     color: var(--color-text-muted);
-    margin: 0 0 1.5rem;
+    margin: 0 0 0.75rem;
     line-height: 1.5;
+  }
+
+  .written-on {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin: 0 0 1.5rem;
   }
 
   .pdf-link {
