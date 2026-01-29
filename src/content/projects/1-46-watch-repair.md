@@ -4,12 +4,12 @@ order: 1
 description: "Designed and built an e-commerce website for 1:46 Watch Repair in Williamsburg, Brooklyn in exchange for a watchmaking apprenticeship."
 cover: "/images/projects/watch-repair/cover.jpg"
 role: "Brand Designer"
+date: "October 2024 – Current"
 tools:
   - Figma
-  - Illustrator
+  - Shopify
+  - Sony A7III
 links:
   - label: "Visit Site"
-    url: "#"
+    url: "https://146watchrepair.com/"
 ---
-
-Designed and built an e-commerce website for 1:46 Watch Repair in Williamsburg, Brooklyn in exchange for a watchmaking apprenticeship.
