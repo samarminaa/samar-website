@@ -107,25 +107,26 @@ const timeline = about.data.timeline || [];
     align-items: center;
   }
 
-  /* Node container - always centered */
+  /* Node container - centered on vertical line for date badge */
   .timeline-node {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: 0.75rem;
     z-index: 2;
   }
 
-  /* Dot on the line */
+  /* Dot on the line - positioned at connector end near blurb */
   .timeline-dot {
+    position: absolute;
+    top: 50%;
     width: 12px;
     height: 12px;
     background: var(--color-bg);
     border: 2px solid var(--color-text);
     border-radius: 50%;
-    flex-shrink: 0;
+    transform: translateY(-50%);
   }
 
   /* Date badge */
@@ -182,6 +183,11 @@ const timeline = about.data.timeline || [];
     flex-direction: row-reverse;
   }
 
+  .timeline-item.left .timeline-dot {
+    right: calc(50% + 154px);
+    left: auto;
+  }
+
   /* RIGHT side events: text on right, date on left of dot */
   .timeline-item.right .timeline-text {
     right: 0;
@@ -195,6 +201,11 @@ const timeline = about.data.timeline || [];
 
   .timeline-item.right .timeline-node {
     flex-direction: row;
+  }
+
+  .timeline-item.right .timeline-dot {
+    left: calc(50% + 166px);
+    right: auto;
   }
 
   /* ==============================================
@@ -221,7 +232,7 @@ const timeline = about.data.timeline || [];
   }
 
   .timeline-dot {
-    transform: scale(0.5);
+    transform: translateY(-50%) scale(0.5);
     transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
@@ -230,7 +241,7 @@ const timeline = about.data.timeline || [];
   }
 
   .timeline-node.is-visible .timeline-dot {
-    transform: scale(1);
+    transform: translateY(-50%) scale(1);
   }
 
   /* Cards (text): slide in from their respective sides */
@@ -321,6 +332,14 @@ const timeline = about.data.timeline || [];
 
     .timeline-dot {
       order: 2;
+      position: static;
+      transform: none;
+    }
+
+    .timeline-item.left .timeline-dot,
+    .timeline-item.right .timeline-dot {
+      left: auto;
+      right: auto;
     }
 
     .timeline-date {
