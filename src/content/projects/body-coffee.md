@@ -1,7 +1,7 @@
 ---
 title: "Body Coffee"
 order: 2
-description: "I co-founded a coffee company and ran it for two years with my partner, Daisy Dunlap. At Body Coffee, we made ready-to-drink, naturally low-caffeine cold brew coffee."
+description: "Built a low-caffeine cold brew coffee company for two years."
 cover: "/images/projects/body-coffee/cover.jpeg"
 role: "Co-Founder"
 date: "December 2022 – November 2024"
@@ -13,19 +13,17 @@ tools:
 ---
 
 <div class="collage">
-  <div class="collage-full">
+  <div class="collage-two">
     <img src="/images/projects/body-coffee/01.webp" alt="" />
+    <img src="/images/projects/body-coffee/02.webp" alt="" />
   </div>
   <div class="collage-three">
-    <img src="/images/projects/body-coffee/02.webp" alt="" />
     <img src="/images/projects/body-coffee/03.webp" alt="" />
     <img src="/images/projects/body-coffee/04.webp" alt="" />
+    <img src="/images/projects/body-coffee/05.webp" alt="" />
   </div>
   <div class="collage-two">
-    <img src="/images/projects/body-coffee/05.webp" alt="" />
     <img src="/images/projects/body-coffee/06.webp" alt="" />
-  </div>
-  <div class="collage-full">
     <img src="/images/projects/body-coffee/07.webp" alt="" />
   </div>
   <div class="collage-three">
@@ -42,11 +40,11 @@ tools:
     <img src="/images/projects/body-coffee/14.webp" alt="" />
     <img src="/images/projects/body-coffee/15.webp" alt="" />
   </div>
-  <div class="collage-full">
+  <div class="collage-two">
     <img src="/images/projects/body-coffee/16.webp" alt="" />
-  </div>
-  <div class="collage-three">
     <img src="/images/projects/body-coffee/17.webp" alt="" />
+  </div>
+  <div class="collage-two">
     <img src="/images/projects/body-coffee/18.webp" alt="" />
     <img src="/images/projects/body-coffee/19.webp" alt="" />
   </div>
