@@ -71,6 +71,7 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
     aspect-ratio: 4 / 3;
     overflow: hidden;
     background: var(--color-bg-alt);
+    border-radius: 8px;
   }
 
   .card-image img {
@@ -113,6 +114,26 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
     text-underline-offset: 2px;
   }
 
+  /* Slide-in animation */
+  .project-card {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .project-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
   @media (max-width: 768px) {
     .project-grid {
       grid-template-columns: 1fr;
@@ -120,3 +141,30 @@ const projects = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order
     }
   }
 </style>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    const cards = document.querySelectorAll('.project-card');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -100px 0px'
+      }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+  } else {
+    document.querySelectorAll('.project-card').forEach((el) => el.classList.add('is-visible'));
+  }
+</script>
