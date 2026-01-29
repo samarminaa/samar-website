@@ -1,7 +1,7 @@
 ---
 title: "Cuba"
-description: "A comprehensive guide to Havana, Viñales, and Trinidad."
-cover: "/images/placeholder.svg"
+description: "A four-day romance with an enthralling island."
+cover: "/images/guides/cuba/cover.webp"
 category: travel-guides
 order: 1
 pdf: ""

@@ -1,7 +1,7 @@
 ---
 title: "San Diego"
-description: "Beaches, craft beer, and the best fish tacos."
-cover: "/images/placeholder.svg"
+description: "A quick study into vibes and views of SoCal."
+cover: "/images/guides/san-diego/cover.webp"
 category: travel-guides
 order: 6
 pdf: ""

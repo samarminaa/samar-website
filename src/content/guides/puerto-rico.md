@@ -1,7 +1,7 @@
 ---
 title: "Puerto Rico"
-description: "Old San Juan, bioluminescent bays, and mofongo."
-cover: "/images/placeholder.svg"
+description: "A five-day adventure on a small, mighty island."
+cover: "/images/guides/puerto-rico/cover.webp"
 category: travel-guides
 order: 7
 pdf: ""

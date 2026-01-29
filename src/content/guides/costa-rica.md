@@ -1,7 +1,7 @@
 ---
 title: "Costa Rica"
-description: "Rainforests, beaches, and pura vida."
-cover: "/images/placeholder.svg"
+description: "A month-long saga dedicated to cloud forests, mangroves, volcanoes, and pura vida."
+cover: "/images/guides/costa-rica/cover.webp"
 category: travel-guides
 order: 5
 pdf: ""

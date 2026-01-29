@@ -1,7 +1,7 @@
 ---
 title: "Seattle and Tacoma"
-description: "Pacific Northwest coffee, nature, and urban exploration."
-cover: "/images/placeholder.svg"
+description: "My first guide, written to remember a four-day first date."
+cover: "/images/guides/seattle-tacoma/cover.webp"
 category: travel-guides
 order: 8
 pdf: ""

@@ -1,7 +1,7 @@
 ---
 title: "Iceland"
-description: "Ring Road road trip and northern lights chasing."
-cover: "/images/placeholder.svg"
+description: "A complete guide to a week-long summer camper van experience along Iceland's Ring Road."
+cover: "/images/guides/iceland/cover.webp"
 category: travel-guides
 order: 3
 pdf: ""

@@ -1,7 +1,7 @@
 ---
 title: "Detourism Ebook"
-description: "A guide to traveling more thoughtfully and sustainably."
-cover: "/images/placeholder.svg"
+description: "A 50-page ebook written and sold through Shut Up and Go™, dedicated to fighting the effects of overtourism."
+cover: "/images/guides/detourism/cover.webp"
 category: travel-guides
 order: 9
 pdf: ""

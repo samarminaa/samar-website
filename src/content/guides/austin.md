@@ -1,7 +1,7 @@
 ---
 title: "Austin"
-description: "Live music, tacos, and keeping Austin weird."
-cover: "/images/placeholder.svg"
+description: "A four-day itinerary for America's weirdest city."
+cover: "/images/guides/austin/cover.webp"
 category: travel-guides
 order: 4
 pdf: ""

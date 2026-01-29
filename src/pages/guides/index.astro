@@ -20,11 +20,13 @@ const travelWriting = sortGuides(allGuides.filter(g => g.data.category === 'trav
 ---
 
 <BaseLayout title="Guides - Samar Ahsan" description="Travel guides, city guides, and travel writing by Samar Ahsan.">
-  <h1>Guides</h1>
+  <blockquote class="page-quote">
+    <p>"We write to taste life twice, in the moment and in retrospect."</p>
+    <cite>— Anaïs Nin</cite>
+  </blockquote>
 
   <section class="guide-section">
     <h2>Travel Guides</h2>
-    <p class="section-description">In-depth guides for places I've explored.</p>
     <ul class="guide-grid">
       {travelGuides.map((guide) => (
         <li class="guide-card">
@@ -68,7 +70,6 @@ const travelWriting = sortGuides(allGuides.filter(g => g.data.category === 'trav
 
   <section class="guide-section">
     <h2>Samar's Declassified City Guides</h2>
-    <p class="section-description">Living documents with my favorite spots in cities I know well.</p>
     <ul class="guide-grid">
       {cityGuides.map((guide) => (
         <li class="guide-card">
@@ -95,7 +96,6 @@ const travelWriting = sortGuides(allGuides.filter(g => g.data.category === 'trav
 
   <section class="guide-section">
     <h2>Travel Writing</h2>
-    <p class="section-description">Stories and essays from my travels.</p>
     <ul class="guide-list-simple">
       {travelWriting.map((guide) => (
         <li>
@@ -111,11 +111,24 @@ const travelWriting = sortGuides(allGuides.filter(g => g.data.category === 'trav
 </BaseLayout>
 
 <style>
-  h1 {
-    margin-top: 0;
-    font-size: 2rem;
-    font-weight: 500;
-    margin-bottom: 2.5rem;
+  .page-quote {
+    margin: 0 0 3rem;
+    padding: 0;
+    border: none;
+  }
+
+  .page-quote p {
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0 0 0.5rem;
+  }
+
+  .page-quote cite {
+    font-size: 1rem;
+    font-style: normal;
+    color: var(--color-text-muted);
   }
 
   .guide-section {
