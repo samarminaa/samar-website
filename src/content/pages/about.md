@@ -31,7 +31,7 @@ timeline:
     description: "Interned at the Aspen Network of Development Entrepreneurs (ANDE)."
   - date: "August 2021"
     title: "frog design"
-    description: "Moved to NYC and started my career at frog design as a strategy analyst.
+    description: "Moved to NYC and started my career at frog design as a strategy analyst."
   - date: "February 2023"
     title: "Body Coffee"
     description: "After spending six weeks in Central America, started a cold brew company with my partner. Sold at Pop Up Grocer."
