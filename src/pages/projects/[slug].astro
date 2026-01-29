@@ -376,6 +376,10 @@ const { Content } = await render(project);
     line-height: 1.6;
   }
 
+  .content :global(.blurb.blurb-three) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   @media (max-width: 768px) {
     .content :global(.blurb) {
       grid-template-columns: 1fr;
@@ -465,6 +469,17 @@ const { Content } = await render(project);
     .content :global(.square-gallery) {
       grid-template-columns: 1fr;
     }
+  }
+
+  /* TikTok Embed */
+  .content :global(.tiktok-container) {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  .content :global(.tiktok-embed) {
+    margin: 0 !important;
   }
 
   /* Lightbox Gallery */
