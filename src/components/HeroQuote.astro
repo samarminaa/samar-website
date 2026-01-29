@@ -23,14 +23,32 @@ const { quote, author, image } = Astro.props;
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
-    background-image: var(--hero-bg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     margin: 0 0 3rem;
     padding: 4rem 3rem;
     border-radius: 8px;
     overflow: hidden;
+  }
+
+  /* Ken Burns animated background */
+  .hero-quote::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--hero-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: kenBurns 15s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+
+  @keyframes kenBurns {
+    0% {
+      transform: scale(1) translate(0, 0);
+    }
+    100% {
+      transform: scale(1.35) translate(-4%, -4%);
+    }
   }
 
   .hero-overlay {
@@ -92,6 +110,10 @@ const { quote, author, image } = Astro.props;
     .hero-overlay,
     .hero-content {
       transition: none;
+    }
+
+    .hero-quote::before {
+      animation: none;
     }
   }
 </style>
