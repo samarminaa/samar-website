@@ -1,0 +1,94 @@
+---
+interface Props {
+  quote: string;
+  author: string;
+  image: string;
+}
+
+const { quote, author, image } = Astro.props;
+---
+
+<section class="hero-quote" style={`--hero-bg: url('${image}')`}>
+  <div class="hero-overlay"></div>
+  <blockquote class="hero-content">
+    <p>"{quote}"</p>
+    <cite>– {author}</cite>
+  </blockquote>
+</section>
+
+<style>
+  .hero-quote {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    background-image: var(--hero-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: -3rem -2rem 3rem;
+    padding: 4rem 3rem;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.1) 40%,
+      rgba(0, 0, 0, 0) 70%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 54rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+    text-align: left;
+  }
+
+  .hero-content p {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.2;
+    color: #fff;
+    margin: 0 0 0.75rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+
+  .hero-content cite {
+    display: block;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-style: normal;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    .hero-quote {
+      min-height: 60vh;
+      margin: -3rem -1.25rem 2rem;
+      padding: 2rem 1.5rem;
+    }
+
+    .hero-content {
+      max-width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-quote,
+    .hero-overlay,
+    .hero-content {
+      transition: none;
+    }
+  }
+</style>

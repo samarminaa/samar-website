@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroQuote from '../../components/HeroQuote.astro';
 
 const allGuides = await getCollection('guides');
 
@@ -20,10 +21,11 @@ const travelWriting = sortGuides(allGuides.filter(g => g.data.category === 'trav
 ---
 
 <BaseLayout title="Guides - Samar Ahsan" description="Travel guides, city guides, and travel writing by Samar Ahsan.">
-  <blockquote class="page-quote">
-    <p>"We write to taste life twice, in the moment and in retrospect."</p>
-    <cite>— Anaïs Nin</cite>
-  </blockquote>
+  <HeroQuote
+    quote="We write to taste life twice, in the moment and in retrospect."
+    author="Anaïs Nin"
+    image="/images/hero/balloon.jpg"
+  />
 
   <section class="guide-section">
     <h2>Travel Guides</h2>
@@ -111,26 +113,6 @@ const travelWriting = sortGuides(allGuides.filter(g => g.data.category === 'trav
 </BaseLayout>
 
 <style>
-  .page-quote {
-    margin: 0 0 3rem;
-    padding: 0;
-    border: none;
-  }
-
-  .page-quote p {
-    font-size: 1.5rem;
-    font-style: italic;
-    font-weight: 400;
-    line-height: 1.4;
-    margin: 0 0 0.5rem;
-  }
-
-  .page-quote cite {
-    font-size: 1rem;
-    font-style: normal;
-    color: var(--color-text-muted);
-  }
-
   .guide-section {
     margin-bottom: 1rem;
   }

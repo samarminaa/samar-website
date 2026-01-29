@@ -2,6 +2,8 @@
 title: "Smart Mirror"
 order: 7
 description: "Built a smart mirror during the pandemic with a miter saw, a Raspberry Pi, and an open-source Python script."
+cover: "/images/projects/smart-mirror/cover.webp"
+hideCoverOnPage: true
 role: "Maker"
 tools:
   - Raspberry Pi
