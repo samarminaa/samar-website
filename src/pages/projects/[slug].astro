@@ -17,19 +17,25 @@ const { Content } = await render(project);
 <BaseLayout title={`${project.data.title} - Samar Ahsan`} description={project.data.description}>
   <article class="project-page">
     <header>
-      <a href="/" class="back-link">&larr; All Projects</a>
+      <a href="/projects" class="back-link">&larr; All Projects</a>
       <h1>{project.data.title}</h1>
       {project.data.description && (
         <p class="description">{project.data.description}</p>
       )}
     </header>
 
-    {(project.data.role || project.data.tools) && (
+    {(project.data.role || project.data.date || project.data.tools) && (
       <div class="meta">
         {project.data.role && (
           <div class="meta-item">
             <span class="meta-label">Role</span>
             <span class="meta-value">{project.data.role}</span>
+          </div>
+        )}
+        {project.data.date && (
+          <div class="meta-item">
+            <span class="meta-label">Date</span>
+            <span class="meta-value">{project.data.date}</span>
           </div>
         )}
         {project.data.tools && project.data.tools.length > 0 && (
@@ -196,6 +202,50 @@ const { Content } = await render(project);
   .gallery img {
     width: 100%;
     border-radius: 4px;
+  }
+
+  /* Editorial Collage Layout */
+  .content :global(.collage) {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .content :global(.collage img) {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .content :global(.collage-full) {
+    width: 100%;
+  }
+
+  .content :global(.collage-two) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .content :global(.collage-asymmetric) {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .content :global(.collage-asymmetric.reverse) {
+    grid-template-columns: 1fr 1.5fr;
+  }
+
+  @media (max-width: 768px) {
+    .content :global(.collage-two),
+    .content :global(.collage-asymmetric),
+    .content :global(.collage-asymmetric.reverse) {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 768px) {
