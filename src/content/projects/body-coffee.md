@@ -16,43 +16,37 @@ tools:
   <div class="collage-full">
     <img src="/images/projects/body-coffee/01.webp" alt="" />
   </div>
-  <div class="collage-two">
+  <div class="collage-three">
     <img src="/images/projects/body-coffee/02.webp" alt="" />
     <img src="/images/projects/body-coffee/03.webp" alt="" />
-  </div>
-  <div class="collage-full">
     <img src="/images/projects/body-coffee/04.webp" alt="" />
   </div>
-  <div class="collage-asymmetric">
+  <div class="collage-two">
     <img src="/images/projects/body-coffee/05.webp" alt="" />
     <img src="/images/projects/body-coffee/06.webp" alt="" />
   </div>
   <div class="collage-full">
     <img src="/images/projects/body-coffee/07.webp" alt="" />
   </div>
-  <div class="collage-two">
+  <div class="collage-three">
     <img src="/images/projects/body-coffee/08.webp" alt="" />
     <img src="/images/projects/body-coffee/09.webp" alt="" />
-  </div>
-  <div class="collage-asymmetric reverse">
     <img src="/images/projects/body-coffee/10.webp" alt="" />
-    <img src="/images/projects/body-coffee/11.webp" alt="" />
   </div>
-  <div class="collage-full">
+  <div class="collage-two">
+    <img src="/images/projects/body-coffee/11.webp" alt="" />
     <img src="/images/projects/body-coffee/12.webp" alt="" />
   </div>
-  <div class="collage-two">
+  <div class="collage-three">
     <img src="/images/projects/body-coffee/13.webp" alt="" />
     <img src="/images/projects/body-coffee/14.webp" alt="" />
-  </div>
-  <div class="collage-full">
     <img src="/images/projects/body-coffee/15.webp" alt="" />
   </div>
-  <div class="collage-asymmetric">
+  <div class="collage-full">
     <img src="/images/projects/body-coffee/16.webp" alt="" />
-    <img src="/images/projects/body-coffee/17.webp" alt="" />
   </div>
-  <div class="collage-two">
+  <div class="collage-three">
+    <img src="/images/projects/body-coffee/17.webp" alt="" />
     <img src="/images/projects/body-coffee/18.webp" alt="" />
     <img src="/images/projects/body-coffee/19.webp" alt="" />
   </div>

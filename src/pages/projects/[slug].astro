@@ -229,21 +229,15 @@ const { Content } = await render(project);
     gap: 1rem;
   }
 
-  .content :global(.collage-asymmetric) {
+  .content :global(.collage-three) {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
-    align-items: center;
-  }
-
-  .content :global(.collage-asymmetric.reverse) {
-    grid-template-columns: 1fr 1.5fr;
   }
 
   @media (max-width: 768px) {
     .content :global(.collage-two),
-    .content :global(.collage-asymmetric),
-    .content :global(.collage-asymmetric.reverse) {
+    .content :global(.collage-three) {
       grid-template-columns: 1fr;
     }
   }
