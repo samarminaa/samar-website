@@ -38,6 +38,12 @@ const { Content } = await render(project);
             <span class="meta-value">{project.data.date}</span>
           </div>
         )}
+        {project.data.team && project.data.team.length > 0 && (
+          <div class="meta-item">
+            <span class="meta-label">Team</span>
+            <span class="meta-value">{project.data.team.join(', ')}</span>
+          </div>
+        )}
         {project.data.tools && project.data.tools.length > 0 && (
           <div class="meta-item">
             <span class="meta-label">Tools</span>
@@ -254,6 +260,103 @@ const { Content } = await render(project);
     .content :global(.collage-two),
     .content :global(.collage-three) {
       grid-template-columns: 1fr;
+    }
+  }
+
+  /* Blurb Block */
+  .content :global(.blurb) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .content :global(.blurb-item) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .content :global(.blurb-label) {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  .content :global(.blurb-item p) {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .content :global(.blurb) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  /* Caption Gallery */
+  .content :global(.caption-gallery) {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin: 2rem 0;
+  }
+
+  .content :global(.gallery-row) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .content :global(.gallery-images) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .content :global(.gallery-images img) {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 0;
+  }
+
+  .content :global(.gallery-captions) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .content :global(.gallery-captions figcaption) {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .content :global(.gallery-captions figcaption strong) {
+    color: var(--color-text);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .content :global(.gallery-images),
+    .content :global(.gallery-captions) {
+      grid-template-columns: 1fr;
+    }
+
+    .content :global(.gallery-row) {
+      gap: 1.5rem;
+    }
+
+    .content :global(.gallery-captions figcaption) {
+      margin-bottom: 1rem;
     }
   }
 
