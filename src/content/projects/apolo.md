@@ -33,8 +33,8 @@ tools:
     </div>
     <div class="gallery-captions">
       <figcaption><strong>Sello Original</strong> 'Apolo' is not capitalized, the words are not inside of the stamp, and the corn plant, while historical to the region, is confusing on coffee bags.</figcaption>
-      <figcaption><strong>Title</strong> Caption text here.</figcaption>
-      <figcaption><strong>Title</strong> Caption text here.</figcaption>
+      <figcaption><strong>Primera Versión</strong> 'APOLO' is now capitalized. The definition is included inside of the embossment as well as the slogan and a coffee plant symbol. Gold is used to symbolize quality.</figcaption>
+      <figcaption><strong>Versión Final</strong> After speaking with stakeholders, we decided to incorporate the original stamp and corn plant to reflect the foundation of APOLO, while still keeping with the gold motif.</figcaption>
     </div>
   </div>
   <div class="gallery-row">
@@ -44,9 +44,18 @@ tools:
       <img src="/images/projects/apolo/06.webp" alt="" />
     </div>
     <div class="gallery-captions">
-      <figcaption><strong>Title</strong> Caption text here.</figcaption>
-      <figcaption><strong>Title</strong> Caption text here.</figcaption>
-      <figcaption><strong>Title</strong> Caption text here.</figcaption>
+      <figcaption><strong>Marca Original</strong> I noticed that a popular trend in Guatemala was to use a combination of cursive and block lettering in signage and branding.</figcaption>
+      <figcaption><strong>Primera Versión</strong> I made the two words cohesive while opting to stay with their brand colors. For style, I added in the Mayan symbol for plant.</figcaption>
+      <figcaption><strong>Versión Final</strong> The board of directors were comfortable with a more modern take and also requested a bold red look.</figcaption>
     </div>
   </div>
+</div>
+
+<div class="square-gallery">
+  <img src="/images/projects/apolo/07.webp" alt="" />
+  <img src="/images/projects/apolo/08.webp" alt="" />
+  <img src="/images/projects/apolo/09.webp" alt="" />
+  <img src="/images/projects/apolo/10.webp" alt="" />
+  <img src="/images/projects/apolo/11.webp" alt="" />
+  <img src="/images/projects/apolo/12.webp" alt="" />
 </div>

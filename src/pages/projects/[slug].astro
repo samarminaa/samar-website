@@ -360,6 +360,28 @@ const { Content } = await render(project);
     }
   }
 
+  /* Square Gallery */
+  .content :global(.square-gallery) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 3rem 0;
+  }
+
+  .content :global(.square-gallery img) {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 4px;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .content :global(.square-gallery) {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 768px) {
     h1 {
       font-size: 2rem;
