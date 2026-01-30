@@ -94,11 +94,15 @@ const { Content } = await render(guide);
   }
 
   .written-on {
+    display: inline-block;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--ink-faint);
+    color: var(--ink-muted);
+    background: var(--surface-purple);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
     margin: 0 0 var(--space-6);
   }
 
@@ -106,20 +110,22 @@ const { Content } = await render(guide);
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: var(--ink);
-    color: var(--bg);
+    padding: var(--space-3) var(--space-5);
+    background: var(--surface-sage);
+    color: var(--ink);
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     letter-spacing: 0.03em;
     text-transform: uppercase;
     text-decoration: none;
     border-radius: var(--radius-sm);
-    transition: opacity 0.15s;
+    border: 1px solid transparent;
+    transition: background 0.15s, border-color 0.15s;
   }
 
   .pdf-link:hover {
-    opacity: 0.85;
+    background: var(--surface-purple);
+    border-color: var(--ink);
   }
 
   .cover {
@@ -129,7 +135,7 @@ const { Content } = await render(guide);
   .cover img {
     width: 100%;
     border-radius: var(--radius-lg);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--surface-sage);
   }
 
   .content {

@@ -155,6 +155,14 @@ const travelWriting = sortGuides(allGuides.filter(g => g.data.category === 'trav
     display: block;
     color: inherit;
     text-decoration: none;
+    padding: var(--space-4);
+    margin: calc(-1 * var(--space-4));
+    border-radius: var(--radius-lg);
+    transition: background 0.2s ease;
+  }
+
+  .guide-card a:hover {
+    background: var(--surface-sage);
   }
 
   .card-image {
@@ -162,7 +170,7 @@ const travelWriting = sortGuides(allGuides.filter(g => g.data.category === 'trav
     overflow: hidden;
     background: var(--bg-alt);
     border-radius: var(--radius-lg);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--surface-purple);
   }
 
   .card-image img {
@@ -202,17 +210,17 @@ const travelWriting = sortGuides(allGuides.filter(g => g.data.category === 'trav
     display: inline-block;
     margin-top: var(--space-3);
     padding: var(--space-1) var(--space-2);
-    background: var(--surface-tan);
+    background: var(--surface-sage);
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: var(--ink-muted);
+    color: var(--ink);
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
 
   .badge.external {
-    background: transparent;
-    border: 1px solid var(--rule);
+    background: var(--surface-tan);
+    border: none;
   }
 
   /* Simple list for travel writing - article listing style */
@@ -233,7 +241,7 @@ const travelWriting = sortGuides(allGuides.filter(g => g.data.category === 'trav
   }
 
   .guide-list-simple li:hover {
-    background: var(--surface-tan);
+    background: var(--surface-purple);
     margin: 0 calc(-1 * var(--space-4));
     padding-left: var(--space-4);
     padding-right: var(--space-4);
