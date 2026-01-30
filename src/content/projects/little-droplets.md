@@ -4,6 +4,7 @@ order: 6
 description: "Dove into a week-long design sprint to increase small donorship for the Vera Institute of Justice."
 cover: "/images/projects/little-droplets/cover.png"
 role: "Consultant"
+date: "June 2020"
 team:
   - Ryan Teo
   - João Campos

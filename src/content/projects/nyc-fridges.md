@@ -5,6 +5,7 @@ description: "Painted a community fridge in Park Slope and re-imagined the commu
 cover: "/images/projects/nyc-fridges/cover.jpg"
 coverPosition: "center 30%"
 role: "Designer & Volunteer"
+date: "January 2023"
 tools:
   - Figma
 team:

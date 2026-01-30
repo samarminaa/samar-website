@@ -5,6 +5,7 @@ description: "Built a smart mirror during the pandemic with a miter saw, a Raspb
 cover: "/images/projects/smart-mirror/cover.webp"
 hideCoverOnPage: true
 role: "Maker"
+date: "April 2020"
 tools:
   - Raspberry Pi
   - Python
