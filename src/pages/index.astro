@@ -22,6 +22,7 @@ const timeline = about.data.timeline || [];
             <div class={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}>
               <div class="timeline-text">
                 <h3>{item.title}</h3>
+                <span class="timeline-date-mobile">{item.date.toUpperCase()}</span>
                 <p>{item.description}</p>
               </div>
               <div class="timeline-connector"></div>
@@ -168,6 +169,11 @@ const timeline = about.data.timeline || [];
     margin: 0;
   }
 
+  /* Mobile-only date (hidden on desktop) */
+  .timeline-date-mobile {
+    display: none;
+  }
+
   /* LEFT side events: text on left, date on right of dot */
   .timeline-item.left .timeline-text {
     left: 0;
@@ -303,37 +309,40 @@ const timeline = about.data.timeline || [];
     }
 
     .timeline {
-      padding: 1rem 0 1rem 2rem;
+      padding: 1rem 0 1rem 0;
     }
 
     .timeline-line {
-      left: 0;
+      left: 6px;
       transform: none;
     }
 
     .timeline-item {
       height: auto;
-      min-height: 100px;
-      padding: 1rem 0;
+      min-height: auto;
+      padding: 0 0 2rem 2rem;
+      display: block;
     }
 
     .timeline-node {
+      position: absolute;
       left: 0;
+      top: 0;
       transform: none;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
     }
 
     .timeline-item.left .timeline-node,
     .timeline-item.right .timeline-node {
-      flex-direction: column;
+      flex-direction: row;
     }
 
     .timeline-dot {
-      order: 2;
       position: static;
       transform: none;
+      flex-shrink: 0;
     }
 
     .timeline-item.left .timeline-dot,
@@ -343,7 +352,16 @@ const timeline = about.data.timeline || [];
     }
 
     .timeline-date {
-      order: 1;
+      display: none;
+    }
+
+    .timeline-date-mobile {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+      margin: 0.25rem 0 0.5rem;
     }
 
     .timeline-connector {
@@ -355,7 +373,17 @@ const timeline = about.data.timeline || [];
       width: 100%;
       left: auto;
       right: auto;
-      padding-left: 1.5rem;
+      padding-left: 0;
+    }
+
+    .timeline-text h3 {
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+
+    .timeline-text p {
+      font-size: 0.8125rem;
+      margin-top: 0;
     }
 
     .timeline-item.left .timeline-text,
