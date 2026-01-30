@@ -90,14 +90,14 @@ const timeline = about.data.timeline || [];
     padding: var(--space-4) 0;
   }
 
-  /* Vertical center line */
+  /* Vertical center line - purple spine */
   .timeline-line {
     position: absolute;
     left: 50%;
     top: 0;
     bottom: 0;
-    width: 1px;
-    background: var(--ink);
+    width: 2px;
+    background: var(--surface-purple);
     transform: translateX(-50%);
   }
 
@@ -132,12 +132,12 @@ const timeline = about.data.timeline || [];
     border-radius: var(--radius-sm);
   }
 
-  /* Horizontal connector line */
+  /* Horizontal connector line - black branches */
   .timeline-connector {
     position: absolute;
     top: 50%;
     height: 1px;
-    background: var(--surface-purple);
+    background: var(--ink);
     width: calc(50% - 160px);
   }
 
