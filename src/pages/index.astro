@@ -90,19 +90,14 @@ const timeline = about.data.timeline || [];
     padding: var(--space-4) 0;
   }
 
-  /* Vertical center line with gradient */
+  /* Vertical center line */
   .timeline-line {
     position: absolute;
     left: 50%;
     top: 0;
     bottom: 0;
-    width: 2px;
-    background: linear-gradient(
-      to bottom,
-      var(--surface-purple) 0%,
-      var(--surface-sage) 50%,
-      var(--surface-tan) 100%
-    );
+    width: 1px;
+    background: var(--ink);
     transform: translateX(-50%);
   }
 
