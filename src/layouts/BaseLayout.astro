@@ -98,19 +98,87 @@ const { title, description = 'Personal website of Samar Ahsan' } = Astro.props;
 </html>
 
 <style is:global>
+  /* ==============================================
+     DESIGN TOKENS
+     Editorial, magazine-inspired design system
+     ============================================== */
   :root {
-    --color-text: #1a1a1a;
-    --color-text-muted: #666;
-    --color-bg: #fff;
-    --color-bg-alt: #f9f9f9;
-    --color-border: #e5e5e5;
-    --color-accent: #1a1a1a;
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    --font-serif: Georgia, 'Times New Roman', serif;
+    /* Colors - ink & paper palette */
+    --ink: #1a1a1a;
+    --ink-muted: #5c5c5c;
+    --ink-faint: #8a8a8a;
+    --bg: #FEF8F5;
+    --bg-alt: #FAF5F2;
+    --rule: rgba(26, 26, 26, 0.12);
+    --rule-strong: rgba(26, 26, 26, 0.2);
+
+    /* Accent surfaces */
+    --surface-tan: #FDF1EA;
+    --surface-purple: #D8D9F1;
+    --surface-sage: #CEE0DC;
+
+    /* Selection */
+    --selection-bg: var(--surface-purple);
+
+    /* Typography - Editorial serif + mono pairing */
+    /* Primary: tries local "Editor" fonts, falls back to quality serifs */
+    --font-serif: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, "Times New Roman", serif;
+    /* Mono: for meta, labels, dates */
+    --font-mono: "GT America Mono", ui-monospace, "SF Mono", "IBM Plex Mono", Menlo, monospace;
+
+    /* Type scale - calm, magazine-like */
+    --text-xs: 0.8125rem;   /* 13px */
+    --text-sm: 0.9375rem;   /* 15px */
+    --text-base: 1.0625rem; /* 17px */
+    --text-md: 1.125rem;    /* 18px */
+    --text-lg: 1.25rem;     /* 20px */
+    --text-xl: 1.5rem;      /* 24px */
+    --text-2xl: 2rem;       /* 32px */
+    --text-3xl: 2.5rem;     /* 40px */
+    --text-4xl: 3rem;       /* 48px */
+
+    /* Line heights */
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.6;
+    --leading-relaxed: 1.75;
+
+    /* Spacing scale */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+
+    /* Layout */
     --max-width: 72rem;
-    --content-width: 42rem;
+    --content-width: 40rem;
+    --measure: 65ch;  /* comfortable reading measure */
+
+    /* Radius - subtle */
+    --radius-sm: 3px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+
+    /* Legacy compatibility */
+    --color-text: var(--ink);
+    --color-text-muted: var(--ink-muted);
+    --color-bg: var(--bg);
+    --color-bg-alt: var(--bg-alt);
+    --color-border: var(--rule);
+    --color-accent: var(--ink);
   }
 
+  /* ==============================================
+     BASE RESET & DEFAULTS
+     ============================================== */
   *,
   *::before,
   *::after {
@@ -118,10 +186,11 @@ const { title, description = 'Personal website of Samar Ahsan' } = Astro.props;
   }
 
   html {
-    font-family: var(--font-sans);
-    line-height: 1.6;
-    color: var(--color-text);
-    background: var(--color-bg);
+    font-family: var(--font-serif);
+    font-size: 17px;
+    line-height: var(--leading-normal);
+    color: var(--ink);
+    background: var(--bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -131,10 +200,14 @@ const { title, description = 'Personal website of Samar Ahsan' } = Astro.props;
     padding: 0;
   }
 
+  ::selection {
+    background: var(--selection-bg);
+  }
+
   .container {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 var(--space-8);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -142,17 +215,32 @@ const { title, description = 'Personal website of Samar Ahsan' } = Astro.props;
 
   main {
     flex: 1;
-    padding: 3rem 0;
+    padding: var(--space-12) 0;
   }
 
+  /* ==============================================
+     TYPOGRAPHY
+     ============================================== */
+
+  /* Links - understated, editorial */
   a {
-    color: var(--color-accent);
-    text-decoration: none;
-    transition: opacity 0.2s;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--rule-strong);
+    transition: text-decoration-color 0.15s ease;
   }
 
   a:hover {
-    opacity: 0.7;
+    text-decoration-color: var(--ink);
+  }
+
+  /* Focus states - accessible */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
   }
 
   img {
@@ -160,35 +248,64 @@ const { title, description = 'Personal website of Samar Ahsan' } = Astro.props;
     height: auto;
   }
 
-  h1, h2, h3, h4 {
-    font-weight: 500;
-    line-height: 1.3;
+  /* Headings - serif, confident hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: var(--leading-tight);
     margin-top: 1.5em;
     margin-bottom: 0.5em;
+    letter-spacing: -0.015em;
+  }
+
+  h1 {
+    font-size: var(--text-3xl);
+    font-weight: 700;
     letter-spacing: -0.02em;
   }
 
-  h1 { font-size: 2.5rem; }
-  h2 { font-size: 1.75rem; }
-  h3 { font-size: 1.25rem; }
-
-  p {
-    margin: 1em 0;
+  h2 {
+    font-size: var(--text-2xl);
   }
 
+  h3 {
+    font-size: var(--text-xl);
+  }
+
+  h4 {
+    font-size: var(--text-lg);
+  }
+
+  /* Body text */
+  p {
+    margin: 1em 0;
+    max-width: var(--measure);
+  }
+
+  /* Meta text - mono, small, for labels/dates/categories */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* Code */
   code {
-    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
-    background: var(--color-bg-alt);
-    padding: 0.2em 0.4em;
-    border-radius: 3px;
-    font-size: 0.9em;
+    font-family: var(--font-mono);
+    background: var(--bg-alt);
+    padding: 0.15em 0.35em;
+    border-radius: var(--radius-sm);
+    font-size: 0.875em;
   }
 
   pre {
-    background: var(--color-bg-alt);
-    padding: 1rem;
-    border-radius: 6px;
+    background: var(--bg-alt);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
     overflow-x: auto;
+    border: 1px solid var(--rule);
   }
 
   pre code {
@@ -196,26 +313,55 @@ const { title, description = 'Personal website of Samar Ahsan' } = Astro.props;
     padding: 0;
   }
 
+  /* ==============================================
+     HAIRLINE RULES
+     ============================================== */
   hr {
     border: none;
-    border-top: 1px solid var(--color-border);
-    margin: 2rem 0;
+    border-top: 1px solid var(--rule);
+    margin: var(--space-8) 0;
   }
 
+  /* Rule utilities */
+  .rule-above {
+    border-top: 1px solid var(--rule);
+    padding-top: var(--space-4);
+  }
+
+  .rule-below {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: var(--space-4);
+  }
+
+  /* ==============================================
+     RESPONSIVE
+     ============================================== */
   @media (max-width: 768px) {
-    .container {
-      padding: 0 1.25rem;
+    html {
+      font-size: 16px;
     }
 
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.5rem; }
+    .container {
+      padding: 0 var(--space-5);
+    }
+
+    h1 {
+      font-size: var(--text-2xl);
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+    }
   }
 </style>
 
 <style>
+  /* ==============================================
+     HEADER - Magazine masthead style
+     ============================================== */
   header {
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-6) 0;
+    border-bottom: 1px solid var(--rule);
   }
 
   nav {
@@ -223,69 +369,79 @@ const { title, description = 'Personal website of Samar Ahsan' } = Astro.props;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .site-title {
-    font-weight: 500;
-    color: var(--color-text);
-    font-size: 1.125rem;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: var(--text-lg);
     letter-spacing: -0.01em;
+    text-decoration: none;
   }
 
   .site-title:hover {
-    opacity: 1;
     text-decoration: none;
   }
 
   .nav-right {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: var(--space-8);
   }
 
   .nav-links {
     display: flex;
-    gap: 1.75rem;
+    gap: var(--space-6);
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
   .nav-links a {
-    color: var(--color-text-muted);
-    font-size: 0.9375rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    padding: var(--space-1) 0;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
   }
 
   .nav-links a:hover {
-    color: var(--color-text);
-    opacity: 1;
+    color: var(--ink);
+    border-bottom-color: var(--ink);
   }
 
   .social-links {
     display: flex;
-    gap: 1rem;
+    gap: var(--space-4);
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
   .social-links a {
-    color: var(--color-text-muted);
+    color: var(--ink-muted);
     display: flex;
     align-items: center;
+    text-decoration: none;
+    transition: color 0.15s ease;
   }
 
   .social-links a:hover {
-    color: var(--color-text);
-    opacity: 1;
+    color: var(--ink);
   }
 
+  /* ==============================================
+     FOOTER - Quiet, publication-style
+     ============================================== */
   footer {
-    padding: 2rem 0;
-    border-top: 1px solid var(--color-border);
-    color: var(--color-text-muted);
-    font-size: 0.875rem;
+    padding: var(--space-8) 0;
+    border-top: 1px solid var(--rule);
   }
 
   .footer-content {
@@ -293,25 +449,45 @@ const { title, description = 'Personal website of Samar Ahsan' } = Astro.props;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .footer-content p {
     margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.02em;
+    color: var(--ink-faint);
   }
 
+  footer .social-links a {
+    color: var(--ink-faint);
+  }
+
+  footer .social-links a:hover {
+    color: var(--ink-muted);
+  }
+
+  /* ==============================================
+     RESPONSIVE
+     ============================================== */
   @media (max-width: 600px) {
+    header {
+      padding: var(--space-4) 0;
+    }
+
     .nav-right {
-      gap: 1.5rem;
+      gap: var(--space-5);
     }
 
     .nav-links {
-      gap: 1.25rem;
+      gap: var(--space-4);
     }
 
     .footer-content {
       flex-direction: column;
       align-items: flex-start;
+      gap: var(--space-3);
     }
   }
 </style>
